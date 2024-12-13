@@ -9,6 +9,22 @@ async function greet() {
   // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
   greetMsg.value = await invoke("greet", { name: name.value });
 }
+
+function sleep(seconds: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, seconds * 1000));
+}
+
+async function setup() {
+    console.log('正在进行前端初始化任务...');
+    await sleep(3);
+    console.log('前端初始化任务完成！');
+    invoke('set_complete', { task: 'frontend' });
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+    setup();
+});
+
 </script>
 
 <template>
